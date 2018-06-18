@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from spyre import server
-#from googlefinance.client import get_price_data
 import pandas as pd
 import matplotlib
 import matplotlib.pyplot as plt
@@ -8,9 +7,6 @@ import sys
 import glob
 reload(sys)
 sys.setdefaultencoding('utf-8')
-
-#server.include_df_index = True
-
 
 class RegionsData(server.App):
     title = u"Спеціальні розділи програмування 1"
@@ -118,36 +114,12 @@ class RegionsData(server.App):
         df = df[['Year', 'Week','Oblast', 'SMN', 'SMT', params['ticker_ind']]]
         df = df[(df['Week']>=params['ticker_week_start']) & (df['Week']<=params['ticker_week_finish'])]
         df = df[(df['Year']>=params['ticker_year_start']) & (df['Year']<=params['ticker_year_finish'])]
-#        #print df[(df['Year']==2018) & (df['Week']==18)]
-#        df = df.drop(['Oblast'], axis='columns')
-#        ticker = params['ticker']
-#        xchng = "NASD"
-#        param = {
-#            'q': ticker,  # Stock symbol (ex: "AAPL")
-#            'i': "86400",  # Interval size in seconds ("86400" = 1 day intervals)
-#            'x': xchng,  # Stock exchange symbol on which stock is traded (ex: "NASD")
-#            'p': "3M"  # Period (Ex: "1Y" = 1 year)
-#        }
-#        df = get_price_data(param)
-#        return df.drop('Volume', axis=1)
         return df
-
 
     def getPlot(self, params):
         df = self.getData(params)
         df = df[['Year', 'Week', params['ticker_ind']]]
-#        df["DT"] = pd.to_datetime(df.Year.astype(str)+
-#                          df.Week.astype(str) ,format='%Y%W')
         df["DT"] = pd.to_datetime(df.Year.astype(str) + df.Week.astype(str).add('-0') ,format='%Y%W-%w')
-#        df = df.drop((['Oblast'], ['SMN'], ['SMT']), axis='columns')
-#        df = df.pivot_table(['Year'], ['Week'])
-#        df = df.pivot_table(params['ticker_ind'], index='Year', columns='Week')
-#        print df
-
-#        plt_obj = plot(df['Year'], df[params['ticker_ind']], "ro")
-#        plt_obj.set_ylabel(params['ticker_ind'])
-#        plt_obj.set_xlabel("Year")
-#        plt_obj.set_title(params['ticker_ind'])
         fig, ax = plt.subplots()
         ax.set_title(params['ticker_ind'])
         ax.set_xlabel(u'Year')
@@ -156,8 +128,6 @@ class RegionsData(server.App):
         ax.grid(True, linestyle='-', color='0.75')
         ax.plot(df['DT'], df[ticker_ind], "g-" )
         return ax
-
-
 
 app = RegionsData()
 app.launch()

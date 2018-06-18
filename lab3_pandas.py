@@ -2,17 +2,19 @@
 import timeit
 import pandas as pd
 
+
 # NEW TIMER ################################################
 start = timeit.default_timer()
 df = pd.read_csv('house1.txt', sep=';', low_memory=False)
 stop = timeit.default_timer()
 execution_time = stop - start
-print(u"Чтение pandas (метод read_csv) 1 000 000 записей " + str(execution_time)) #It returns time in sec
-#print(df.head(2))
+print(u"Чтение pandas (метод read_csv) 1 000 000 записей " + str(execution_time))
+
 
 df = df.dropna()
 print df.size
 print len(df)
+
 
 # NEW TIMER ################################################
 start = timeit.default_timer()
@@ -22,6 +24,7 @@ execution_time = stop - start
 print(u"Выборка pandas (Global_active_power > 5) из 1 000 000 записей " + str(execution_time))
 df1 = df1[['Date', 'Time', 'Global_active_power']]
 print(df1.head(2))
+
 
 # NEW TIMER ################################################
 start = timeit.default_timer()
@@ -44,6 +47,7 @@ print(u"(Задание 3) Выборка pandas (Global_intensity >= 19 A and <
 print df3[:3]
 print df3.size
 
+
 # NEW TIMER ################################################
 start = timeit.default_timer()
 df4 = df.sample(n=500000)
@@ -56,6 +60,7 @@ print(u"(Задание 4) Выборка pandas 500 000 случайных за
 print df4.head(2)
 print df4.size
 print len(df4)
+
 
 # NEW TIMER ################################################
 start = timeit.default_timer()

@@ -4,7 +4,7 @@ import numpy as np
 
 # NEW TIMER ################################################
 start = timeit.default_timer()
-data = np.genfromtxt('house3.txt', dtype='S10,S8,f8,f8,f8,f8,f8,f8,f8', names=True, delimiter=';', )
+data = np.genfromtxt('house1.txt', dtype='S10,S8,f8,f8,f8,f8,f8,f8,f8', names=True, delimiter=';', )
 stop = timeit.default_timer()
 execution_time = stop - start
 print(u"Чтение numpy метод genfromtxt 1 000 000 записей " + str(execution_time)) #It returns time in sec
@@ -39,15 +39,12 @@ print data3.size
 
 # NEW TIMER ################################################
 start = timeit.default_timer()
-# generate random boolean mask the length of data
-# use p 0.75 for False and 0.25 for True
 mask = np.random.choice([False, True], len(data), p=[0.45, 0.55])
 data4 = data[mask]
 data4 = data4[np.logical_not(np.isnan(data4['Sub_metering_1']))]
 data4 = data4[np.logical_not(np.isnan(data4['Sub_metering_2']))]
 data4 = data4[np.logical_not(np.isnan(data4['Sub_metering_3']))]
-#data4 = data4[~np.isnan(data4['Sub_metering_1'])]
-data4 = data4[:50000]
+data4 = data4[:500000]
 stop = timeit.default_timer()
 execution_time = stop - start
 print(u"Выборка numpy 500 000 случайных записей из 1 000 000 записей " + str(execution_time))
@@ -59,11 +56,8 @@ start = timeit.default_timer()
 sub1_mean = np.mean(data4['Sub_metering_1'],axis=0)
 sub2_mean = np.mean(data4['Sub_metering_2'],axis=0)
 sub3_mean = np.mean(data4['Sub_metering_3'],axis=0)
-#data4 = data4[:500000]
-#inds3 = np.where(np.isnan(data4['Sub_metering_3']))
 stop = timeit.default_timer()
 execution_time = stop - start
-#print(u"Выборка numpy 500 000 случайных записей из 1 000 000 записей " + str(execution_time))
 print(u"(Задание 4) Выборка numpy из 500 000 записей " + str(execution_time))
 print ("sub1_mean " + str(sub1_mean))
 print ("sub2_mean " + str(sub2_mean))
@@ -82,10 +76,8 @@ data6 = data5[list1]
 stop = timeit.default_timer()
 execution_time = stop - start
 print(u"(Задание 5)Выборка numpy из 500 000 записей " + str(execution_time))
-#print data5[:5]
 print data5.size
 print data6.size
-#print data6
 
 
 

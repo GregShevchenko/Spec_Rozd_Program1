@@ -34,30 +34,13 @@ print df.columns.values
 df = df[(df['VHI'] <= 35) & (df['VHI'] > 15)]
 df = df.groupby(['Year'])['VHI'].mean().reset_index()
 print df
-#print df.columns
-#print df.head(3)
-#print df.iloc[:,1]
-#print list(df.columns.values)
 
-#df1 = df.sort_values('VHI')
-#df1_min = df1.head(1)
-#df1_max = df1.tail(1)
-#vhi_min = 'Min = ' + str(df['VHI'].min())
-#vhi_max = 'Max = ' + str(df['VHI'].max())
 fig, ax = plt.subplots()
 ax.set_title(u'VHI > 15 но < 35 ' + region)
 ax.set_xlabel(u'Year')
 ax.set_ylabel('VHI')
 ax.plot(df['Year'], df['VHI'], "ro" )
-#ax.plot(df.ix[:,1], df.ix[:,2], )
-#df1.ix[:,1]
 ax.grid(True, linestyle='-', color='0.75')
-#ax.plot(df1_min.Week, df1_min.VHI, "ro")
-#ax.text(df1_min.Week, df1_min.VHI, '   ' + vhi_min) #ax.text (х, у, текст)
-#ax.plot(df1_max.Week, df1_max.VHI, "ro")
-#ax.text(df1_max.Week, df1_max.VHI, '   ' + vhi_max) #ax.text (х, у, текст)
-
-
 #fig.savefig("test.png")
 plt.show()
 
